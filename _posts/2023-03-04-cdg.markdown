@@ -14,3 +14,5 @@ The command line arguments are `.\mednafen.exe -force_module pce -physcd D:` and
 
 I then navigated to the GRAPHICS option on the top right, select a track and press PLAY.
 You can then press SELECT to hide the controls.
+
+![Mednafen working](/assets/images/cdg.jpg)
