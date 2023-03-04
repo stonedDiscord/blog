@@ -3,8 +3,6 @@ layout: post
 title:  "Playing physical CD+G on a PC"
 ---
 
-# Playing physical CD+G on a PC
-
 This was harder than i thought it would be.
 
 I ended up using [Mednafen version 0.9.37-2](https://forum.fobby.net/index.php?t=msg&goto=3814)

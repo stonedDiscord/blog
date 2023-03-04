@@ -1,0 +1,48 @@
+---
+layout: post
+title:  "Emulating Android on arm64"
+---
+
+I want to run 2 Android VMs on my Orange Pi 5 with Ubuntu, it can even run Android natively.
+
+You'd think this would be easy - it's the same architecture, they both run on linux, just use a VM and it'll work, right?
+
+Well, if you search the internet on how to run Android in qemu you run into StackOverflow posts suggesting to just use Android-x86 over and over.
+
+It is obviously very silly to run an x86 build of Android on an arm board and Android-x86 seems to be very outdated by now.
+
+My current "solution" is to use the cuttlefish emulator made by Google for validating Android kernels.
+
+I more or less followed step 1 of [this guide](https://nathanchance.dev/posts/building-using-cuttlefish/) to get an image and the emulator itself, you'll only hit minor roadblocks like the deb packages being in a different folder or creating package conflicts.
+
+After dealing with that and moving all the pieces in the right places you can actually run the VM with `HOME=${PWD} ./bin/launch_cvd -daemon --start_webrtc=true`
+
+You can then navigate to the cuttlefish webinterface and interact with the VM.
+But you'll notice something very quickly: It is so slow that it's pretty much unusable.
+
+The problem seems to be that cuttlefish can't find OpenGL, despite the libraries all being in the right places.
+
+```
+assemble_cvd D 02-16 21:21:15  8098  8098 graphics_detector.cpp:91] Failed to dlopen libEGL.so.1.
+assemble_cvd D 02-16 21:21:15  8098  8098 graphics_detector.cpp:61] Failed to dlopen libOpenGL.so.0.
+assemble_cvd D 02-16 21:21:15  8098  8098 graphics_detector.cpp:71] Failed to dlopen libGLESv1_CM.so.1.
+assemble_cvd D 02-16 21:21:15  8098  8098 graphics_detector.cpp:81] Failed to dlopen libGLESv2.so.2.
+assemble_cvd D 02-16 21:21:15  8098  8098 graphics_detector.cpp:358] Failed to dlopen libvulkan.so.1.
+assemble_cvd D 02-16 21:21:15  8084  8084 graphics_detector.cpp:91] Failed to dlopen libEGL.so.1.
+assemble_cvd D 02-16 21:21:15  8084  8084 graphics_detector.cpp:61] Failed to dlopen libOpenGL.so.0.
+assemble_cvd D 02-16 21:21:15  8084  8084 graphics_detector.cpp:71] Failed to dlopen libGLESv1_CM.so.1.
+assemble_cvd D 02-16 21:21:15  8084  8084 graphics_detector.cpp:81] Failed to dlopen libGLESv2.so.All2.
+assemble_cvd D 02-16 21:21:15  8084  8084 graphics_detector.cpp:358] Failed to dlopen libvulkan.so.1.
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] Graphics Availability:
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805]
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] OpenGL lib available: false
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] OpenGL ES1 lib available: false
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] OpenGL ES2 lib available: false
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] EGL lib available: false
+assemble_cvd D 02-16 21:21:15  8084  8084 flags.cc:805] Vulkan lib available: false
+```
+oh no...
+
+All the `--gpu_mode=` options don't work either and any LD_LIBRARY_PATH tricks make it worse.
+
+[The documentation](https://source.android.com/docs/setup/create/cuttlefish-ref-gpu) mentions `GL_KHR_surfaceless_context` but glinfo will only list `EGL_KHR_surfaceless_context` which shouldn't be a problem??
