@@ -1,0 +1,16 @@
+---
+layout: post
+title:  "Playing physical CD+G on a PC"
+---
+
+# Playing physical CD+G on a PC
+
+This was harder than i thought it would be.
+
+I ended up using [Mednafen version 0.9.37-2](https://forum.fobby.net/index.php?t=msg&goto=3814)
+because they [removed support for physical media in 0.9.38](https://forum.fobby.net/index.php?t=msg&goto=4639).
+
+The command line arguments are `.\mednafen.exe -force_module pce -physcd D:` and then I had to press `Shift+Alt+1` to map the buttons to a controller because i don't have a numpad where the I and II keys are mapped on the default settings.
+
+I then navigated to the GRAPHICS option on the top right, select a track and press PLAY.
+You can then press SELECT to hide the controls.
