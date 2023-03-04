@@ -16,3 +16,15 @@ I then navigated to the GRAPHICS option on the top right, select a track and pre
 You can then press SELECT to hide the controls.
 
 ![Mednafen working](/assets/images/cdg.jpg)
+
+The manual can be found [here](https://archive.org/details/nec-pc-engine-core-grafx-cd-rom2/page/n17/mode/2up)
+
+The pcfx mode also works, it has slightly more options such as pitch shift.
+But some images appear glitched.
+On the PC-FX CD the RUN button hides the UI.
+
+![Very nineties UI](/assets/images/cdg.jpg)
+
+
+KaraFun Player 2 did not work.
+It can only read files and an Audio CD doesn't have files on it.
