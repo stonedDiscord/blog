@@ -21,7 +21,7 @@ The pcfx mode also works, it has slightly more options such as pitch shift.
 But some images appear glitched.
 On the PC-FX CD the RUN button hides the UI.
 
-![Very nineties UI](/assets/images/cdg.jpg)
+![Very nineties UI](/assets/images/pcfx.jpg)
 
 
 KaraFun Player 2 did not work.
